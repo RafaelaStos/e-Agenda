@@ -1,4 +1,5 @@
-﻿using e_Agenda.ConsoleApp.ModuloContatos;
+﻿using e_Agenda.ConsoleApp.ModuloCompromisso;
+using e_Agenda.ConsoleApp.ModuloContatos;
 using e_Agenda.ConsoleApp.ModuloTarefa;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace e_Agenda.ConsoleApp.ModuloCompatilhado
         private IRepositorio<Contato> repositorioContato;
         private TelaCadastroContatos telaCadastroContatos;
       
+        private IRepositorio<Compromisso> repositorioCompromisso;
+        private TelaCadastroCompromisso telaCadastroCompromisso;
         public TelaMenuPrincipal(Notificador notificador)
         {
             repositorioContato =new RepositorioContatos();
@@ -24,6 +27,9 @@ namespace e_Agenda.ConsoleApp.ModuloCompatilhado
             
             repositorioTarefa = new RepositorioTarefa();
             telaCadastroTarefa = new TelaCadastroTarefa(repositorioTarefa, notificador); 
+
+            repositorioCompromisso = new RepositorioCompromisso();
+            telaCadastroCompromisso = new TelaCadastroCompromisso(repositorioCompromisso, notificador, repositorioContato, telaCadastroContatos);
         }
 
         public string MostrarOpcoes()
@@ -56,7 +62,7 @@ namespace e_Agenda.ConsoleApp.ModuloCompatilhado
                 tela = telaCadastroTarefa;
 
             else if (opcao == "2")
-                tela = null;
+                tela = telaCadastroCompromisso;
 
             else if (opcao == "3")
                 tela = telaCadastroContatos;

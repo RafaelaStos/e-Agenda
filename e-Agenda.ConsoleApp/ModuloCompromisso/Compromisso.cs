@@ -38,11 +38,12 @@ namespace e_Agenda.ConsoleApp.ModuloCompromisso
         public override string ToString()
         {
             return "Id: " + id + Environment.NewLine +
+                 "Contato: " + contatos.Nome + Environment.NewLine +
                 "Assunto: " + Assusnto + Environment.NewLine +
                 "Local: " + Local + Environment.NewLine +
                 "Dia : " + DiaCompromisso.ToShortDateString() + Environment.NewLine +
                 "Hora Inicio : " + HoraInicio.ToShortTimeString()+ Environment.NewLine +
-                "horario final : " + DiaCompromisso.ToShortTimeString() + Environment.NewLine; 
+                "horario final : " + HoraFinal.ToShortTimeString() + Environment.NewLine; 
 
         }
         public override ResultadoValidacao Validar()

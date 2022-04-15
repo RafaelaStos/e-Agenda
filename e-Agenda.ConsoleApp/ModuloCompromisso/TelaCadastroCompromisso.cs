@@ -38,7 +38,9 @@ namespace e_Agenda.ConsoleApp.ModuloCompromisso
 
             int numeroContato = ObterNumeroRegistro();
 
-            Contato compromissoAtualizado = ObterCompromisso();
+
+            Contato contatoSeleciona =ObtemContato();
+            Compromisso compromissoAtualizado = ObterCompromisso(contatoSeleciona);
 
             bool conseguiuEditar = _repositorioCompromisso.Editar(numeroContato, compromissoAtualizado);
 
@@ -74,9 +76,9 @@ namespace e_Agenda.ConsoleApp.ModuloCompromisso
 
         public void Inserir()
         {
-            
+
             Contato contatoselecionado = ObtemContato();
-            
+
             Compromisso novoCompromisso = ObterCompromisso(contatoselecionado);
 
             _repositorioCompromisso.Inserir(novoCompromisso);
@@ -114,13 +116,13 @@ namespace e_Agenda.ConsoleApp.ModuloCompromisso
             Console.Write("Digite o local: ");
             string local = Console.ReadLine();
 
-            Console.Write("Digite email: ");
+            Console.Write("Digite dia: ");
             DateTime dia = Convert.ToDateTime(Console.ReadLine());
 
-            Console.Write("Digite email: ");
+            Console.Write("Digite hora inicial: ");
             DateTime inicio = Convert.ToDateTime(Console.ReadLine());
 
-            Console.Write("Digite email: ");
+            Console.Write("Digite horari final: ");
             DateTime fim = Convert.ToDateTime(Console.ReadLine());
 
 
@@ -132,42 +134,47 @@ namespace e_Agenda.ConsoleApp.ModuloCompromisso
             MostrarTitulo("Cadastrar Compromissos");
             Console.WriteLine("Deseja vincular aum contato? (s/n)");
             string opcao = Console.ReadLine();
-           
-            if(opcao == "s" ||)
-                bool temFilmeCadastrado = telaCadastroContatos.Visualizar("");
-                if (!temFilmeCadastrado)
+
+            if (opcao == "s" || opcao == "S")
+            {
+                bool temContatoCadastrado = telaCadastroContatos.Visualizar("");
+                if (!temContatoCadastrado)
                 {
-                    _notificador.ApresentarMensagem("Você precisa cadastrar um filme antes de um filme!", TipoMensagem.Atencao);
+                    _notificador.ApresentarMensagem("Você precisa cadastrar um contato antes!", TipoMensagem.Atencao);
                     return null;
                 }
 
-                Console.Write("Digite o ID do filme que deseja Selecionar: ");
+                Console.Write("Digite o ID do Contato que deseja Selecionar: ");
                 int numeroFilmeSelecionado = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine();
 
-        
-            return contatoSelecionado;
+                Contato contatoSelecionado = repositorioContato.SelecionarRegistro(numeroFilmeSelecionado);
+                return contatoSelecionado;
+
+            }else
+      return null;
 
         }
-        private int ObterNumeroRegistro()
-        {
-            int numeroRegistro;
-            bool numeroRegistroEncontrado;
-
-            do
+            private int ObterNumeroRegistro()
             {
-                Console.Write("Digite o ID do Compromisso que deseja editar: ");
-                numeroRegistro = Convert.ToInt32(Console.ReadLine());
+                int numeroRegistro;
+                bool numeroRegistroEncontrado;
 
-                numeroRegistroEncontrado = _repositorioCompromisso.ExisteRegistro(numeroRegistro);
+                do
+                {
+                    Console.Write("Digite o ID do Compromisso que deseja editar: ");
+                    numeroRegistro = Convert.ToInt32(Console.ReadLine());
 
-                if (numeroRegistroEncontrado == false)
-                    _notificador.ApresentarMensagem("ID do contatto não foi encontrado, digite novamente", TipoMensagem.Atencao);
+                    numeroRegistroEncontrado = _repositorioCompromisso.ExisteRegistro(numeroRegistro);
 
-            } while (numeroRegistroEncontrado == false);
+                    if (numeroRegistroEncontrado == false)
+                        _notificador.ApresentarMensagem("ID do contatto não foi encontrado, digite novamente", TipoMensagem.Atencao);
 
-            return numeroRegistro;
-        }
-    }
-}
+                } while (numeroRegistroEncontrado == false);
+
+                return numeroRegistro;
+            }
+        
+
+    } 
 }
